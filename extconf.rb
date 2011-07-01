@@ -51,7 +51,7 @@ if with_config('freetype')
   have_library('freetype')
 end
 
-if have_library('z') and have_library('png') and 
+if have_library('z') and 
     have_library('gd', 'gdImagePng') and have_library('m')
 
   if with_config('ttf') and not have_func('gdImageStringTTF')
