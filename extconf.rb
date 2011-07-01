@@ -73,11 +73,7 @@ if have_library('z') and have_library('png') and
     delete_link('freetype')
   end
   
-  if enable_config("gd2_0", false)
-    if have_func("gdImageAlphaBlending")
-      $CFLAGS += ' -DENABLE_GD_2_0'
-    end
-  end
+  $CFLAGS += ' -DENABLE_GD_2_0'
 
   create_makefile('GD')
 end

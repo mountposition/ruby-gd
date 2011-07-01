@@ -2517,6 +2517,33 @@ img_set_thickness(img, thickness)
 }
 
 
+static VALUE
+img_flip_horizontal(img)
+VALUE img;
+{
+  gdImagePtr im;
+  int x, y;
+  int w, h;
+  int pix1, pix2;
+  
+  Data_Get_Struct(img, gdImage, im);
+  w = gdImageSX(im);
+  h = gdImageSY(im);
+  data = alloca(w * sizeof(int));
+  
+  for(y = 0; y < h; y++) {
+    for(x = 0; x < (w / 2); x++) {
+      pix1 = gdImageGetPixel(im, x, y);
+      pix2 = gdImageGetPixel(im, w-1-x, y);
+      gdImageSetPixel(im, x, y, pix2);
+      gdImageSetPixel(im, w-1-x, y, pix1);
+    }
+  }
+  
+  return img;
+}
+
+
 
 #endif /* ENABLE_GD_2_0 */
 
@@ -2708,5 +2735,6 @@ Init_GD()
     rb_define_const(mGD, "Edged", INT2FIX(gdEdged));
 
 #endif /* ENABLE_GD_2_0 */
-
+  
+  rb_define_method(cImage, "flip_horizontal", img_flip_horizontal, 0);
 }
