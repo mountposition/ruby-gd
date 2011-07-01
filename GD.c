@@ -2529,7 +2529,6 @@ VALUE img;
   Data_Get_Struct(img, gdImage, im);
   w = gdImageSX(im);
   h = gdImageSY(im);
-  data = alloca(w * sizeof(int));
   
   for(y = 0; y < h; y++) {
     for(x = 0; x < (w / 2); x++) {
